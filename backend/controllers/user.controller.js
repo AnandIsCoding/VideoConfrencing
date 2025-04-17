@@ -3,6 +3,7 @@ import { User } from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { strict } from "node:assert";
+import { Meeting } from "../models/meeting.model.js";
 
 export const registerUserController = async (req, res) => {
   try {
@@ -122,3 +123,26 @@ export const loginUserController = async (req, res) => {
       });
   }
 };
+
+
+export const getAllActivitiesController = async(req,res) =>{
+  try {
+    const {userId} = req.body
+    const user = await User.findOne({userId}) 
+    const allmeetings = await Meeting.find({user_id:userId})
+    return res.status(201).json({success:true,message:'Meetings Fetched Successfully',meetings})
+  } catch (error) {
+    if(error.code === 'ECONNRESET') return res.status(500).json({ success: false, message: "Server connection lost. Please retry." });
+    console.log(
+      "Error in getAllActivitiesController --->> ",
+      chalk.bgRed(error.message)
+    );
+    return res
+      .status(503)
+      .json({
+        success: false,
+        message: "Internal Server Error",
+        error: "Internal Server Error",
+      });
+  }
+}

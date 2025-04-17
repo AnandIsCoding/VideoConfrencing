@@ -11,8 +11,8 @@ import connectToSocket from './configs/socket.config.js'
 import userRouter from './routes/user.routes.js'
 
 const PORT = process.env.SERVER_PORT || 8000
-const app = express()
 
+const app = express()
 const server = createServer(app)
 const io = connectToSocket(server)
 
