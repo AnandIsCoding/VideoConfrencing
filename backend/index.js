@@ -21,7 +21,7 @@ app.use(urlencoded({limit:'40kb', extended:true}))
 
 
 // CORS configuration
-const allowedOrigins = ["http://localhost:3000" , "http://localhost:8000"];
+const allowedOrigins = ["http://localhost:3000" , "http://localhost:8000", "http://localhost:5173"];
 const corsOptions = {
     origin: (origin, callback) => {
         if (allowedOrigins.includes(origin) || !origin) {
